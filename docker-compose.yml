@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11.4-alpine
+    environment:
+      - POSTGRES_USER=project
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=project
+    ports:
+      - 5431:5432
+
+  redis:
+    image: redis:5-alpine
+    ports:
+      - 6376:6379
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - db:db
+      - redis:redis
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./root:/app/root
+    command: bash -c "python root/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8089:8000
+    environment:
+      - DB_HOST=db
+      - DB_USER=project
+      - DB_PASS=12345
+      - DB_PORT=5432
+      - DB_NAME=project
+      - DEBUG=True
+      - SECRET_KEY=*gsz=r(p2j32rom7n1bo4i&94m#0)d6k1c85#od2r&fxz+=alt
+
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/
+      - FLOWER_PORT=8888
+    ports:
+      - 5555:8888
+    depends_on:
+      - celery-worker
+
+  celery-worker:
+    build: .
+    links:
+      - db:db
+      - redis:redis
+    command: bash -c "cd root/ && celery -A project.celery worker -l info --concurrency=4"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./root:/app/root
+    environment:
+      - DB_HOST=db
+      - DB_USER=project
+      - DB_PASS=12345
+      - DB_PORT=5432
+      - DB_NAME=project
+      - DEBUG=True
+      - SECRET_KEY=*gsz=r(p2j32rom7n1bo4i&94m#0)d6k1c85#od2r&fxz+=alt
+      - REDIS_HOST=redis
