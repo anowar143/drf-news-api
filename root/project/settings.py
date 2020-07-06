@@ -15,12 +15,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '*gsz=r(p2j32rom7n1bo4i&94m#0)d6k1c85#od2r&fxz+=alt'
+# SECRET_KEY = '*gsz=r(p2j32rom7n1bo4i&94m#0)d6k1c85#od2r&fxz+=alt'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -28,10 +27,9 @@ DEBUG = bool(os.environ.get('DEBUG', True))
 
 ALLOWED_HOSTS = ['*']
 
-
-
 # Application definition
 LOCAL_APPS = [
+    'user',
     'bone',
     'news',
     'comment',
@@ -43,7 +41,6 @@ THIRD_PARTY = [
     'rest_framework',
 ]
 
-
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,9 +51,7 @@ DJANGO_APPS = [
 
 ]
 
-
 INSTALLED_APPS = THIRD_PARTY + DJANGO_APPS + LOCAL_APPS
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,7 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -127,10 +121,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-
-
 REDIS_HOST = os.environ.get('REDIS_HOST', '127.0.0.1')
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -145,8 +136,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
 # celery
 CELERY_BROKER_URL = "redis://{}:6379".format(REDIS_HOST)
 CELERY_RESULT_BACKEND = "redis://{}:6379".format(REDIS_HOST)
@@ -155,11 +144,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
+AUTH_USER_MODEL = 'user.User'

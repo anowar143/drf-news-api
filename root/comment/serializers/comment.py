@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from comment.models.comment import Comment
 
@@ -9,5 +8,3 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('art', 'write_a_comment', 'usr')
-        lookup_field = 'art'
-

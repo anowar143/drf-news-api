@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news.urls')),
     path('', include('comment.urls')),
-#    path('users/', include('user.urls')),
+    path('users/', include('user.urls')),
 ]
