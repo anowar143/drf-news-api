@@ -4,6 +4,6 @@ from comment.views.comment import CommentListCreateAPIView, CommentRetrieveUpdat
 
 urlpatterns = [
     path('comments/', CommentListCreateAPIView.as_view(), name='comment-list-create-api'),
-    path('<int:id>/', CommentRetrieveUpdateApiView.as_view(), name='comment-get-update-api'),
+    path('comments/<int:id>/', CommentRetrieveUpdateApiView.as_view(), name='comment-get-update-api'),
 
 ]
