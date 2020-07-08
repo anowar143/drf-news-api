@@ -9,3 +9,8 @@ class News(BaseModel):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        db_table = 'news'
+        verbose_name = 'news'
+        verbose_name_plural = 'news'

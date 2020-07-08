@@ -11,15 +11,14 @@ class NewsListCreateAPIView(ListCreateAPIView):
     serializer_class = NewsSerializer
 
     def perform_create(self, serializer):
-        req = serializer.context['request']
-        serializer.save(created_by=req.user, updated_by=req.user, )
-
-    '''def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-'''
+        serializer.save(created_by=self.request.user, updated_by=self.request.user,)
 
 
 class NewsRetrieveUpdateApiView(RetrieveUpdateAPIView):
     permission_classes = (permissions.AllowAny,)
     queryset = News.objects.filter()
     serializer_class = NewsSerializer
+    lookup_field = 'id'
+
+    def perform_update(self, serializer):
+        serializer.save()
