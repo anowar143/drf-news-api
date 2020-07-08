@@ -1,4 +1,3 @@
-#f
 from rest_framework import permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
 

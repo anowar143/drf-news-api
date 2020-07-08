@@ -3,7 +3,6 @@ from news.models.news import News
 from user.models import User
 
 
-#t
 class Comment(models.Model):
     article = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments', )
     write_a_comment = models.TextField(max_length=1000, )
