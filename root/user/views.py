@@ -1,5 +1,5 @@
 from rest_framework.generics import ListCreateAPIView
-from rest_framework import permissions, status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 
 from user.serializers import UserSerializer

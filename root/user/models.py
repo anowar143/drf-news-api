@@ -1,6 +1,6 @@
-from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.base_user import BaseUserManager
 
 
 class CustomUserManager(BaseUserManager):
@@ -46,21 +46,25 @@ class User(AbstractBaseUser):
 
     first_name = models.CharField(max_length=255, )
     last_name = models.CharField(max_length=255, )
-    email = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=150)
-    gender = models.CharField(max_length=20, choices=GENDER, default='male')
-    is_active = models.BooleanField(default=True, )
-    is_staff = models.BooleanField(default=False, )
+    email = models.CharField(max_length=150, unique=True, )
+    password = models.CharField(max_length=150, )
+    gender = models.CharField(max_length=20, choices=GENDER, default='male', )
+    status = models.CharField(max_length=20, choices=STATUS, default='active', )
     is_superuser = models.BooleanField(default=False, )
-    status = models.CharField(max_length=20, choices=STATUS, default='active')
+    is_active = models.BooleanField(default=True, )
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'gender', 'status']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'gender', 'is_superuser', 'is_staff', 'is_active', 'status']
     objects = CustomUserManager()
     last_login = None
 
     def __str__(self):
         return self.email
+
+    def has_perm(self, perm, obj=None): return self.is_superuser
+
+    def has_module_perms(self, app_label): return self.is_superuser
 
     class Meta:
         db_table = 'users'
