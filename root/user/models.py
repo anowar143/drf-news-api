@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.postgres.fields import ArrayField
 
 
 class CustomUserManager(BaseUserManager):
@@ -53,6 +54,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False, )
     is_active = models.BooleanField(default=True, )
     is_staff = models.BooleanField(default=False)
+    groups = ArrayField(models.CharField(max_length=100), default=list)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'gender', 'is_superuser', 'is_staff', 'is_active', 'status']
@@ -62,9 +64,9 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None): return self.is_superuser
+    # def has_perm(self, perm, obj=None): return self.is_superuser
 
-    def has_module_perms(self, app_label): return self.is_superuser
+    # def has_module_perms(self, app_label): return self.is_superuser
 
     class Meta:
         db_table = 'users'
