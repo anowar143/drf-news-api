@@ -67,7 +67,6 @@ class UserLogin(CreateAPIView):
 class ChangePassword(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.filter()
-    permission_classes = (permissions.AllowAny, )
 
     def get_permissions(self):
         if self.request.method == 'POST':
