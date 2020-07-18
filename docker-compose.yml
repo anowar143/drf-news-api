@@ -27,6 +27,8 @@ services:
       - redis
     volumes:
       - ./root:/app/root
+      - media:/app/root/media
+      - static:/app/root/static
     command: bash -c "python root/manage.py runserver 0.0.0.0:8000"
     ports:
       - 8089:8000
@@ -70,3 +72,7 @@ services:
       - DEBUG=True
       - SECRET_KEY=*gsz=r(p2j32rom7n1bo4i&94m#0)d6k1c85#od2r&fxz+=alt
       - REDIS_HOST=redis
+
+volumes:
+  static:
+  media:
