@@ -1,6 +1,6 @@
 from django.urls import path
 
-from news.views.news import NewsListCreateAPIView, NewsRetrieveUpdateApiView
+from news.views import NewsListCreateAPIView, NewsRetrieveUpdateApiView
 
 urlpatterns = [
     path('news/', NewsListCreateAPIView.as_view(), name='news-list-create-api'),

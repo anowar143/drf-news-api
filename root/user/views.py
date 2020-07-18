@@ -13,6 +13,8 @@ from user.serializers import UserSerializer
 from user.models import User
 from user.permissions import UserPermission
 
+from bone.renderer import DefaultRenderer
+
 
 class UserListCreateAPIView(ListCreateAPIView):
     serializer_class = UserSerializer

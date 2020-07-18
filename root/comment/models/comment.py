@@ -1,6 +1,7 @@
 from django.db import models
-from news.models.news import News
+
 from user.models import User
+from news.models import News
 
 
 class Comment(models.Model):

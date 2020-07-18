@@ -1,1 +1,1 @@
-from comment.serializers.comment import *
+from comment.views.comment import *

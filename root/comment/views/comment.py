@@ -1,12 +1,13 @@
-from rest_framework import permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from comment.models.comment import Comment
-from comment.serializers.comment import CommentSerializer
+from comment.models import Comment
+from comment.serializers import CommentSerializer
+from comment.permissions import IsOwnerOrReadOnly
 
 
 class CommentListCreateAPIView(ListCreateAPIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -16,7 +17,7 @@ class CommentListCreateAPIView(ListCreateAPIView):
 
 
 class CommentRetrieveUpdateApiView(RetrieveUpdateAPIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, )
     queryset = Comment.objects.filter()
     serializer_class = CommentSerializer
     lookup_field = 'id'

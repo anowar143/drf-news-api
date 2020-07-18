@@ -1,4 +1,4 @@
-'''import jwt
+import jwt
 from jwt.exceptions import InvalidTokenError, ExpiredSignatureError
 from django.conf import settings
 
@@ -25,4 +25,4 @@ class AuthMiddleware:
             except (InvalidTokenError, ExpiredSignatureError, User.DoesNotExist) as e:
                 return Response({'message': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
         response = self.get_response(request)
-        return response'''
+        return response
