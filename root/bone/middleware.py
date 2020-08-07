@@ -12,6 +12,7 @@ class AuthMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        setattr(request, '_dont_enforce_csrf_checks', True)
         if not request.headers.get('Authorization'):
             pass
         else:
