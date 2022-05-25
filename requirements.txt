@@ -4,4 +4,4 @@ djangorestframework==3.11.0
 django-jet==1.0.8
 celery==4.4.1
 redis==3.4.1
-pyjwt==1.7.1
+pyjwt==2.4.0
